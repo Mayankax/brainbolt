@@ -2,6 +2,10 @@
 
 An adaptive quiz application that intelligently adjusts question difficulty based on your performance using momentum-based algorithms. Challenge yourself, climb the leaderboard, and track your progress in real-time.
 
+## Demo Video
+
+https://drive.google.com/file/d/16Q01v-gLX2RcNCL8BsyPqSWpe9dbsZ1b/view?usp=sharing
+
 ## Features
 
 - **Adaptive Difficulty System** - Questions automatically adjust to your skill level using a momentum-based algorithm with streak tracking and hysteresis

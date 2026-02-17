@@ -7,3 +7,7 @@ dist
 Dockerfile
 docker-compose.yml
 *.log
+coverage
+.env.loacal
+.env
+apps/*/node_modules

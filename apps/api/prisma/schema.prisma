@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String      @id @default(uuid())
+  createdAt DateTime    @default(now())
+
+  state     UserState?
+  answers   AnswerLog[]
+}
+
+model Question {
+  id                String   @id @default(uuid())
+  difficulty        Int
+  prompt            String
+  choices           Json
+  correctAnswerHash String
+  tags              String[]
+  createdAt         DateTime @default(now())
+  answers           AnswerLog[]
+
+  @@index([difficulty])
+}
+
+model UserState {
+  userId            String   @id
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  currentDifficulty Int      @default(1)
+  streak            Int      @default(0)
+  maxStreak         Int      @default(0)
+  totalScore        Float    @default(0)
+
+  accuracy          Float    @default(0)
+  totalAttempts     Int      @default(0)
+  correctAttempts   Int      @default(0)
+
+  momentum          Float    @default(0)   // stabilizer metric
+
+  lastQuestionId    String?
+  lastAnswerAt      DateTime?
+  stateVersion      Int      @default(1)
+
+  updatedAt         DateTime @updatedAt
+
+  @@index([totalScore])
+  @@index([maxStreak])
+  @@index([currentDifficulty])
+}
+
+model AnswerLog {
+  id                   String   @id @default(uuid())
+  userId               String
+  questionId           String
+  difficulty           Int
+  answer               String
+  correct              Boolean
+  scoreDelta           Float
+  streakAtAnswer       Int
+  answeredAt           DateTime @default(now())
+  idempotencyKey       String
+
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question             Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, idempotencyKey])
+  @@index([userId])
+  @@index([questionId])
+  @@index([answeredAt])
+}

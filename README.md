@@ -42,30 +42,29 @@ https://drive.google.com/file/d/16Q01v-gLX2RcNCL8BsyPqSWpe9dbsZ1b/view?usp=shari
 
 ## Getting Started
 
-### Quick Start with Docker
+### ⚡ Quick Start with Docker (One Command)
 
-1. **Clone the repository**
+1. **Clone and run**
    ```bash
    git clone https://github.com/Mayankax/brainbolt.git
    cd brainbolt
-   ```
-
-2. **Start all services**
-   ```bash
    docker compose up --build
    ```
 
-3. **Access the application**
+2. **Access the application**
    - Frontend: http://localhost:3000
    - API: http://localhost:4000
    - Health check: http://localhost:4000/health
 
-The application will automatically:
-- Set up PostgreSQL database
-- Run Prisma migrations
-- Start Redis cache
-- Launch the API server
-- Start the Next.js frontend
+That's it! The entire application starts with automatic:
+- PostgreSQL database setup
+- Database migrations (`prisma migrate deploy`)
+- Database seeding with sample questions (`prisma db seed`)
+- Redis cache initialization
+- API server startup
+- Next.js frontend startup
+
+No manual environment variable setup or additional commands needed!
 
 ### Local Development Setup
 

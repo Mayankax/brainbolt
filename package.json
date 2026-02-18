@@ -10,6 +10,10 @@
     "build": "npm run build --workspace=web && npm run build --workspace=api"
   },
   "devDependencies": {
-    "concurrently": "^9.0.0"
+    "concurrently": "^9.0.0",
+    "prisma": "^6.19.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.2"
   }
 }

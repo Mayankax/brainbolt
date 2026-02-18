@@ -1,8 +1,8 @@
-import crypto from "crypto";
 import { prisma } from "../lib/prisma.js";
 import { computeAdaptiveResult } from "./adaptive.service.js";
 import { updateLeaderboards, getUserRank } from "./leaderboard.service.js";
 import { redis } from "../lib/redis.js";
+import crypto from "crypto";
 
 async function getQuestionPool(difficulty: number) {
   const cacheKey = `questions:difficulty:${difficulty}`;
@@ -66,7 +66,7 @@ export async function submitAnswer(params: {
 }) {
   const { userId, questionId, answer, stateVersion, idempotencyKey } = params;
 
-  return prisma.$transaction(async (tx) => {
+  return prisma.$transaction(async (tx:any) => {
     const state = await tx.userState.findUnique({
       where: { userId },
     });
